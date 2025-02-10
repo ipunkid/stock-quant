@@ -48,7 +48,13 @@ def calculate_max_gain_this_year(df):
     if df.index[0] > YEAR_START_DATE:
         return None
     year_data = df[df.index >= YEAR_START_DATE]
-    year_start_price = year_data['close'].iloc[0]
+    if not year_data.empty:
+        year_start_price = year_data['close'].iloc[0]
+    else:
+        prev_year_data = df[df.index < YEAR_START_DATE]
+        if prev_year_data.empty:
+            return False
+        year_start_price = prev_year_data['close'].iloc[-1]
     max_price_this_year = year_data['close'].max()
     return ((max_price_this_year - year_start_price) / year_start_price * 100).round(2)
 

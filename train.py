@@ -92,7 +92,7 @@ def filter_criteria(df):
                 return False  # Not enough data to make a decision
             year_start_price = prev_year_data["close"].iloc[-1]
         
-        return (latest["close"] - year_start_price) / year_start_price <= 1
+        return (latest["close"] - year_start_price) / year_start_price <= 0.6
 
     conditions = [
         check_rps(),
